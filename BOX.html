@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.container{
+				width: 726px;
+				height: 576px;
+				margin: 100px auto;
+
+			}
+			ul{
+				width: 726px;
+				height: 576px;
+			}
+			ul li{
+				width: 200px;
+				height: 150px;
+				text-align: center;
+				line-height: 150px;
+				font-size: 40px;
+				border: 1px solid #000000;
+				margin: 10px;
+				float: left;
+				position: relative;
+				overflow: hidden;
+			}
+			ul li .li{
+				width: 200px;
+				height: 150px;
+				text-align: center;
+				line-height: 150px;
+				font-size: 40px;
+
+			}
+			.box{
+				width: 200px;
+				height: 150px;
+				background: rgba(255,0,0,0.3);
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				transform: translate(0,-150px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li>
+					<div class="li">1</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">2</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">3</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">4</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">5</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">6</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">4</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">5</div>
+					<div class="box"></div>
+				</li>
+				<li>
+					<div class="li">6</div>
+					<div class="box"></div>
+				</li>
+
+			</ul>
+
+		</div>
+		<script type="text/javascript">
+			var aLi=document.querySelectorAll('li');
+			var timer=null;
+			aLi.forEach(function(oLi,index){
+				var oBox=oLi.querySelector('.box');
+				var orginX=oLi.offsetLeft+oLi.offsetWidth/2;
+
+				var orginY=oLi.offsetTop+oLi.offsetHeight/2;
+				oLi.onmouseenter=function({clientX,clientY}){
+					 clearTimeout(timer);
+					var delX=(clientX-orginX)*2;
+					var delY=(clientY-orginY)*2;
+					console.log(delX)
+					oBox.style.transform=`translate(${delX}px,${delY}px)`;
+					timer=setTimeout(function(){
+						oBox.style.transition="0.3s";
+						oBox.style.transform=`translate(0,0)`;
+					},10)
+				}
+				oLi.onmouseleave=function({clientX,clientY}){
+					 clearTimeout(timer)
+					var delX=(clientX-orginX)*2;
+					var delY=(clientY-orginY)*2;
+					oBox.style.transition="0.3s";
+					oBox.style.transform=`translate(${delX}px,${delY}px)`;
+					oBox.addEventListener('transitionend',function(){
+						oBox.style.transition='';
+					},false)
+				}
+			});
+		</script>
+	</body>
+</html>
